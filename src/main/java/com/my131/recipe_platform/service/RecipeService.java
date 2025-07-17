@@ -67,6 +67,22 @@ public class RecipeService {
         return new RecipeResponseDto(saved.getId(), saved.getTitle(), saved.getDescription());
     }
 
+    public RecipeResponseDto update(Long id, RecipeRequestDto recipeRequestDto) {
+        Recipe existRecipe = recipeRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("해당 레시피가 없습니다."));
+
+        existRecipe.setTitle(recipeRequestDto.getTitle());
+        existRecipe.setDescription(recipeRequestDto.getDescription());
+
+        Recipe saved = recipeRepository.save(existRecipe);
+
+        return new RecipeResponseDto(saved.getId(), saved.getTitle(), saved.getDescription());
+    }
+
+    public void delete(Long id) {
+        recipeRepository.deleteById(id);
+    }
+
     // 레시피에 재료를 추가
     public void addIngredient(Long recipeId, AddIngredientDto addIngredientDto) {
         // 해당 레시피가 있어야 추가가능
@@ -99,4 +115,6 @@ public class RecipeService {
         RecipeIngredientId id = new RecipeIngredientId(recipeId, IngredientId);
         recipeIngredientRepository.deleteById(id);
     }
+
+
 }

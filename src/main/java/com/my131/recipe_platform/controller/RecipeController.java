@@ -47,6 +47,21 @@ public class RecipeController {
         return recipeService.create(recipeRequestDto);
     }
 
+    @PutMapping("/{id}")
+    public RecipeResponseDto update(
+            @PathVariable Long id,
+            @Valid @RequestBody RecipeRequestDto recipeRequestDto
+    ) {
+        return recipeService.update(id, recipeRequestDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        recipeService.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/{id}/ingredients/add")
     public ResponseEntity<Void> addIngredient(
             @PathVariable Long id,
@@ -57,8 +72,7 @@ public class RecipeController {
         return ResponseEntity.ok().build();
     }
 
-    //레시피를 삭제하는 게 아니라 레시피의 재료를 삭제하기 때문에 POST 요청 사용
-    @PostMapping("/{id}/ingredients/{ingredientId}/remove")
+    @DeleteMapping("/{id}/ingredients/{ingredientId}/remove")
     public ResponseEntity<Void> removeIngredient(
             @PathVariable Long id,
             @PathVariable Long ingredientId
