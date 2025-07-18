@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class RecipeController {
     private final RecipeService recipeService;
 
-    //전체조회 + 페이징
+    // 전체조회 + 페이징
     @GetMapping
     public Page<RecipeResponseDto> list(
             @RequestParam(defaultValue = "0") int page,
@@ -31,22 +31,19 @@ public class RecipeController {
         return recipeService.list(pageable);
     }
 
-//    @GetMapping("/{id}")
-//    public RecipeResponseDto get(@PathVariable Long id) {
-//        return recipeService.getById(id);
-//    }
-
-    //단일조회
+    // 단일조회
     @GetMapping("/{id}")
     public RecipeDetailDto get(@PathVariable Long id) {
         return recipeService.get(id);
     }
 
+    // 레시피 생성
     @PostMapping
     public RecipeResponseDto create(@Valid @RequestBody RecipeRequestDto recipeRequestDto) {
         return recipeService.create(recipeRequestDto);
     }
 
+    // 레시피 수정
     @PutMapping("/{id}")
     public RecipeResponseDto update(
             @PathVariable Long id,
@@ -55,6 +52,7 @@ public class RecipeController {
         return recipeService.update(id, recipeRequestDto);
     }
 
+    // 레시피 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         recipeService.delete(id);
@@ -62,6 +60,7 @@ public class RecipeController {
         return ResponseEntity.noContent().build();
     }
 
+    // 레시피에 재료 추가
     @PostMapping("/{id}/ingredients/add")
     public ResponseEntity<Void> addIngredient(
             @PathVariable Long id,
@@ -72,6 +71,7 @@ public class RecipeController {
         return ResponseEntity.ok().build();
     }
 
+    // 레시피에 재료 삭제
     @DeleteMapping("/{id}/ingredients/{ingredientId}/remove")
     public ResponseEntity<Void> removeIngredient(
             @PathVariable Long id,

@@ -2,10 +2,10 @@ package com.my131.recipe_platform.controller;
 
 import com.my131.recipe_platform.dto.IngredientRequestDto;
 import com.my131.recipe_platform.dto.IngredientResponseDto;
-import com.my131.recipe_platform.model.Ingredient;
+
 import com.my131.recipe_platform.service.IngredientService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
